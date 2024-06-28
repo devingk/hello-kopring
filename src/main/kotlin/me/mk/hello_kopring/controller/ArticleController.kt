@@ -2,9 +2,11 @@ package me.mk.hello_kopring.controller
 
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
+import me.mk.hello_kopring.dto.ArticleListResponse
 import me.mk.hello_kopring.service.ArticleService
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,5 +23,11 @@ class ArticleController(
             : ResponseEntity<ArticleCreationResponse> {
 
         return ResponseEntity.ok(articleService.createArticle(request))
+    }
+
+    @GetMapping
+    fun getArticles(): ResponseEntity<ArticleListResponse> {
+
+        return ResponseEntity.ok(articleService.getArticles())
     }
 }

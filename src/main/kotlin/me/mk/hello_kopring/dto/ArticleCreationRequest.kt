@@ -9,5 +9,5 @@ data class ArticleCreationRequest(
     val title: String,
 
     @field:NotBlank(message = "The content $NOT_BLANK")
-    val content: String
+    val contents: String
 )

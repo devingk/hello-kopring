@@ -2,6 +2,7 @@ package me.mk.hello_kopring.service
 
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
+import me.mk.hello_kopring.dto.ArticleListResponse
 import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.repository.ArticleRepository
 import org.springframework.stereotype.Service
@@ -18,5 +19,12 @@ class ArticleService(
         val article = articleRepository.save(Article.from(request))
 
         return ArticleCreationResponse.from(article)
+    }
+
+    fun getArticles(): ArticleListResponse {
+
+        val articles = articleRepository.findAll()
+
+        return ArticleListResponse.from(articles)
     }
 }

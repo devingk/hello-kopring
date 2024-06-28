@@ -1,8 +1,7 @@
 package me.mk.hello_kopring.repository
 
-import me.mk.hello_kopring.test.data.TestArticle
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
+import me.mk.hello_kopring.test.data.TestArticle.article
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,13 +18,14 @@ class ArticleRepositoryTest {
     fun createArticle() {
 
         //given
-        val article = TestArticle.article()
-        val expectedResult = TestArticle.article(1L)
+        val article = article()
+        val expectedResult = article(1L)
 
         //when
         val result = articleRepository.save(article)
 
         //then
         assertThat(result).isEqualTo(expectedResult)
+
     }
 }

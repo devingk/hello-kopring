@@ -1,18 +1,15 @@
 package me.mk.hello_kopring.service
 
-import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
 import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.repository.ArticleRepository
-import me.mk.hello_kopring.test.data.TestArticle
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
-import org.junit.jupiter.api.Assertions.*
+import me.mk.hello_kopring.test.data.TestArticle.article
+import me.mk.hello_kopring.test.data.TestArticle.articleCreationRequest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.BDDMockito
-import org.mockito.BDDMockito.*
+import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
@@ -31,9 +28,9 @@ class ArticleServiceTest {
     fun createArticle() {
 
         //given
-        val request = TestArticle.articleCreationRequest()
+        val request = articleCreationRequest()
         val article = Article.from(request)
-        val savedArticle = TestArticle.article(1L)
+        val savedArticle = article(1L)
         given(articleRepository.save(article)).willReturn(savedArticle)
 
         val expectedResult = ArticleCreationResponse.from(savedArticle)

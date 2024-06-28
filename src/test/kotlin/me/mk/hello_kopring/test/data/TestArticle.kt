@@ -4,7 +4,7 @@ import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
 import me.mk.hello_kopring.entity.Article
 
-object TestArticle {
+object  TestArticle {
 
     fun article(): Article {
         return Article(
@@ -25,16 +25,16 @@ object TestArticle {
 
         return ArticleCreationRequest(
             title = "test article title",
-            content = "test article contents"
+            contents = "test article contents"
         )
     }
 
     fun articleCreationResponse(id: Long): ArticleCreationResponse {
+
         return ArticleCreationResponse(
             id = id,
             title = "test article title",
             contents = "test article contents"
         )
-
     }
 }
