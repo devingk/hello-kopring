@@ -1,9 +1,6 @@
 package me.mk.hello_kopring.service
 
-import me.mk.hello_kopring.dto.ArticleUpdateRequest
-import me.mk.hello_kopring.dto.ArticleUpdateResponse
-import me.mk.hello_kopring.dto.ArticleCreationResponse
-import me.mk.hello_kopring.dto.ArticleListResponse
+import me.mk.hello_kopring.dto.*
 import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.repository.ArticleRepository
 import me.mk.hello_kopring.test.data.TestArticle.article
@@ -82,6 +79,24 @@ class ArticleServiceTest {
 
         //when
         val result = articleService.updateArticle(id, request)
+
+        //then
+        assertThat(result).isEqualTo(expectedResult)
+    }
+
+    @Test
+    @DisplayName("게시판 글 삭제")
+    fun deleteArticle() {
+
+        //given
+        val id = 1L
+        val article = article(id)
+        given(articleRepository.findById(id)).willReturn(Optional.of(article))
+
+        val expectedResult = ArticleDeletionResponse.from(article)
+
+        //when
+        val result = articleService.deleteArticle(id)
 
         //then
         assertThat(result).isEqualTo(expectedResult)

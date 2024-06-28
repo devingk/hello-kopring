@@ -1,11 +1,9 @@
 package me.mk.hello_kopring.controller
 
-import me.mk.hello_kopring.dto.ArticleCreationRequest
-import me.mk.hello_kopring.dto.ArticleListResponse
-import me.mk.hello_kopring.dto.ArticleUpdateRequest
-import me.mk.hello_kopring.dto.ArticleUpdateResponse
+import me.mk.hello_kopring.dto.*
 import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.service.ArticleService
+import me.mk.hello_kopring.test.data.TestArticle
 import me.mk.hello_kopring.test.data.TestArticle.article
 import me.mk.hello_kopring.test.data.TestArticle.articleCreationRequest
 import me.mk.hello_kopring.test.data.TestArticle.articleCreationResponse
@@ -129,6 +127,31 @@ class ArticleControllerTest {
             put(path, id)
                 .content(objectMapper.writeValueAsString(request))
                 .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andDo(print())
+
+        //then
+        resultActions.andExpectAll(
+            status().isOk,
+            content().json(objectMapper.writeValueAsString(expectedResult))
+        )
+    }
+
+    @Test
+    @DisplayName("게시판 글 삭제")
+    fun deleteArticle() {
+
+        //given
+        val path = "/articles/{id}"
+
+        val id = 1L
+        val article = article(id)
+        val expectedResult = ArticleDeletionResponse.from(article)
+        given(articleService.deleteArticle(id)).willReturn(expectedResult)
+
+        //when
+        val resultActions = mockMvc.perform(
+            delete(path, id)
         )
             .andDo(print())
 
