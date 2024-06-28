@@ -1,5 +1,7 @@
 package me.mk.hello_kopring.service
 
+import me.mk.hello_kopring.controller.ArticleUpdateRequest
+import me.mk.hello_kopring.controller.ArticleUpdateResponse
 import me.mk.hello_kopring.dto.ArticleCreationResponse
 import me.mk.hello_kopring.dto.ArticleListResponse
 import me.mk.hello_kopring.entity.Article
@@ -14,7 +16,7 @@ import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import kotlin.math.exp
+import java.util.Optional
 
 @ExtendWith(MockitoExtension::class)
 class ArticleServiceTest {
@@ -56,6 +58,30 @@ class ArticleServiceTest {
 
         //when
         val result = articleService.getArticles()
+
+        //then
+        assertThat(result).isEqualTo(expectedResult)
+    }
+
+    @Test
+    @DisplayName("게시판 글 수정")
+    fun updateArticle() {
+
+        //given
+        val id = 1L
+        val article = article(id)
+        given(articleRepository.findById(id)).willReturn(Optional.of(article))
+
+        val request = ArticleUpdateRequest(
+            title = "updated title",
+            contents = "updated contents"
+        )
+
+        val updatedArticle = Article.update(id, request)
+        val expectedResult = ArticleUpdateResponse.from(updatedArticle)
+
+        //when
+        val result = articleService.updateArticle(id, request)
 
         //then
         assertThat(result).isEqualTo(expectedResult)

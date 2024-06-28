@@ -1,5 +1,7 @@
 package me.mk.hello_kopring.service
 
+import me.mk.hello_kopring.controller.ArticleUpdateRequest
+import me.mk.hello_kopring.controller.ArticleUpdateResponse
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
 import me.mk.hello_kopring.dto.ArticleListResponse
@@ -14,6 +16,8 @@ class ArticleService(
     val articleRepository: ArticleRepository
 
 ) {
+
+    @Transactional
     fun createArticle(request: ArticleCreationRequest): ArticleCreationResponse {
 
         val article = articleRepository.save(Article.from(request))
@@ -26,5 +30,16 @@ class ArticleService(
         val articles = articleRepository.findAll()
 
         return ArticleListResponse.from(articles)
+    }
+
+    @Transactional
+    fun updateArticle(id: Long, request: ArticleUpdateRequest): ArticleUpdateResponse {
+
+        val article = articleRepository.findById(id)
+            .orElseThrow { IllegalArgumentException("The article doesn't exist.") }
+
+        val updatedArticle = Article.update(article.id, request)
+
+        return ArticleUpdateResponse.from(updatedArticle)
     }
 }

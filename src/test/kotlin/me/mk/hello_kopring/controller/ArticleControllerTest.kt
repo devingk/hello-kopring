@@ -2,7 +2,9 @@ package me.mk.hello_kopring.controller
 
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleListResponse
+import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.service.ArticleService
+import me.mk.hello_kopring.test.data.TestArticle
 import me.mk.hello_kopring.test.data.TestArticle.article
 import me.mk.hello_kopring.test.data.TestArticle.articleCreationRequest
 import me.mk.hello_kopring.test.data.TestArticle.articleCreationResponse
@@ -15,8 +17,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -96,6 +98,37 @@ class ArticleControllerTest {
         //when
         val resultActions = mockMvc.perform(
             get(path)
+        )
+            .andDo(print())
+
+        //then
+        resultActions.andExpectAll(
+            status().isOk,
+            content().json(objectMapper.writeValueAsString(expectedResult))
+        )
+    }
+
+    @Test
+    @DisplayName("게시판 글 수정")
+    fun updateArticle() {
+
+        //given
+        val path = "/articles/{id}"
+
+        val id = 1L
+        val request = ArticleUpdateRequest(
+            title = "updated article",
+            contents = "test contents"
+        )
+        val updatedArticle = Article.update(id, request)
+        val expectedResult = ArticleUpdateResponse.from(updatedArticle)
+        given(articleService.updateArticle(id, request)).willReturn(expectedResult)
+
+        //when
+        val resultActions = mockMvc.perform(
+            put(path, id)
+                .content(objectMapper.writeValueAsString(request))
+                .contentType(MediaType.APPLICATION_JSON)
         )
             .andDo(print())
 
