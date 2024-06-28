@@ -3,7 +3,6 @@ package me.mk.hello_kopring.test.data
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
 import me.mk.hello_kopring.entity.Article
-import me.mk.hello_kopring.service.ArticleService
 
 object TestArticle {
 
@@ -26,7 +25,7 @@ object TestArticle {
 
         return ArticleCreationRequest(
             title = "test article title",
-            contents = "test article contents"
+            content = "test article contents"
         )
     }
 

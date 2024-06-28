@@ -1,5 +1,6 @@
 package me.mk.hello_kopring.service
 
+import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleCreationResponse
 import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.repository.ArticleRepository

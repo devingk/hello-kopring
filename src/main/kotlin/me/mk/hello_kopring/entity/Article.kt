@@ -24,7 +24,7 @@ data class Article(
 
             return Article(
                 title = request.title,
-                contents = request.contents
+                contents = request.content
             )
         }
     }
