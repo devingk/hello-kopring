@@ -2,9 +2,10 @@ package me.mk.hello_kopring.controller
 
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 import me.mk.hello_kopring.dto.ArticleListResponse
+import me.mk.hello_kopring.dto.ArticleUpdateRequest
+import me.mk.hello_kopring.dto.ArticleUpdateResponse
 import me.mk.hello_kopring.entity.Article
 import me.mk.hello_kopring.service.ArticleService
-import me.mk.hello_kopring.test.data.TestArticle
 import me.mk.hello_kopring.test.data.TestArticle.article
 import me.mk.hello_kopring.test.data.TestArticle.articleCreationRequest
 import me.mk.hello_kopring.test.data.TestArticle.articleCreationResponse
@@ -17,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content

@@ -1,4 +1,4 @@
-package me.mk.hello_kopring.controller
+package me.mk.hello_kopring.dto
 
 import me.mk.hello_kopring.entity.Article
 

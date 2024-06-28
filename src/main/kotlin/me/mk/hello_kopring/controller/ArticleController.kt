@@ -1,11 +1,10 @@
 package me.mk.hello_kopring.controller
 
-import me.mk.hello_kopring.dto.ArticleCreationRequest
-import me.mk.hello_kopring.dto.ArticleCreationResponse
-import me.mk.hello_kopring.dto.ArticleListResponse
+import me.mk.hello_kopring.dto.*
 import me.mk.hello_kopring.service.ArticleService
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -38,5 +37,11 @@ class ArticleController(
             : ResponseEntity<ArticleUpdateResponse> {
 
         return ResponseEntity.ok(articleService.updateArticle(id, request))
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteArticle(@PathVariable id: Long): ResponseEntity<ArticleDeletionResponse> {
+
+        return ResponseEntity.ok(articleService.deleteArticle(id))
     }
 }

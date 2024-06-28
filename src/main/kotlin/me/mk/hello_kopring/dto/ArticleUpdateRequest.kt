@@ -1,4 +1,4 @@
-package me.mk.hello_kopring.controller
+package me.mk.hello_kopring.dto
 
 data class ArticleUpdateRequest(
     val title: String,

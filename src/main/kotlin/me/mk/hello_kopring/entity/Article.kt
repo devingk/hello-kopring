@@ -5,7 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import me.mk.hello_kopring.controller.ArticleUpdateRequest
+import me.mk.hello_kopring.dto.ArticleUpdateRequest
 import me.mk.hello_kopring.dto.ArticleCreationRequest
 
 @Entity
